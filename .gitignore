@@ -1,0 +1,13 @@
+# 대용량 CSV 파일 제외
+Selection_industrial_complex/연간화재통계/10년_통합_화재.csv
+
+# 캐시, 설정
+__pycache__/
+*.pyc
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
