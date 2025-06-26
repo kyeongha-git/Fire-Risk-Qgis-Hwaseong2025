@@ -14,6 +14,13 @@
 
 자세한 내용은 아래 Presentation을 참고해주시면 감사하겠습니다.
 
+# Work Flow
+
+![플로차트 - 프레임 3 (2)](https://github.com/user-attachments/assets/30de4cf7-539a-478e-9a09-3c75dfd993d0)
+
+![플로차트 - 프레임 1 (1)](https://github.com/user-attachments/assets/25a3ff89-ceb7-468b-b7ab-0282627eed08)
+
+
 # 🏆 Result
 2025년도 제 2회 화성시 도시데이터 연구공모전 대상 수상
 
