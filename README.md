@@ -40,7 +40,7 @@
 
 ![Image](https://github.com/user-attachments/assets/28f5f1c3-0f10-4340-8345-c7859f1bb4f6)
 
-![화성 gif 2](https://github.com/user-attachments/assets/b3368c29-2a70-40d3-b80b-d03498a0f5b4)
+![Image](https://github.com/user-attachments/assets/2ce7ec9f-a245-46ba-b4af-567081a60d80)
 
 ![Image](https://github.com/user-attachments/assets/d486b557-3e15-43b2-a79b-e3e36761bc9f)
 
@@ -53,5 +53,3 @@
 ![Image](https://github.com/user-attachments/assets/c0180574-bd47-4ce0-a8a8-4aca15406d63)
 
 ![Image](https://github.com/user-attachments/assets/7b81a169-ac88-42ce-90a3-1410a00455ca)
-
-
