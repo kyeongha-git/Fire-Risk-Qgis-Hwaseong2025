@@ -8,6 +8,7 @@ __pycache__/
 
 # VSCode
 .vscode/
+.log
 
 # Jupyter Notebook Checkpoints
 .ipynb_checkpoints/
