@@ -1,71 +1,49 @@
-# 👋 Introduction
+# Introduction
 
- 본 연구는 『제 2회 화성시 도시데이터 연구공모전』에 참가하여 『QGIS와 데이터분석을 통한 화재 취약지역 식별 및 대응 방안 연구』를 진행한 내용입니다.
-경기도 화성시는 Urban AI로의 발전을 도모하고 있었고, 저희는 화성시의 특성을 고려하여 산업단지의 화재 취약 지역을 식별하고 Digital Transformation을 위한 정책을 제안하였습니다.
+ 본 연구는 『제 2회 화성시 도시데이터 연구공모전』에 참가하여 **대상**을 수상한 프로젝트입니다. 본 공모전의 목적은 화성시가 Urban AI로 다가가기 위한 정책을 제안하는 것이며, 저희는 데이터 분석을 통하여 "문제 정의 ➞ 분석 모델링 ➞ 해결책 제시 ➞ 웹 데모 배포"를 진행하였습니다.
 
- 경기도 화성시는 전국 화재 발생 건수 1위이며, 화재는 산업단지에서 가장 많이 발생하였습니다. 그러나, 화성시는 예방 정책이 대부분이었으며 화재 발생 이후의 대책이 부족하였습니다.
-따라서, 본 연구는 Digital Transformation을 위해 산업단지 내에 AI CCTV (VLM)이 다수 설치되어야 함을 강조하였고, 구체적으로 들어가 화재 취약 지역을 식별하여 위 지역에 우선적으로 설치해야 함을 제안했습니다. ✍️
+1) 문제 정의
+- 화성시는 지난 10년 전국 각 지역별 **총 화재건수에서 8009건으로 압도적인 1위를 차지**합니다.
+- 화성시는 전국 타지역 평균 공장 수 대비 약 16.5배의 공장을 보유하고 있으며, 화성시의 화재 최초착화물의 **22%가 공장에서 발생**하였습니다.
 
- 화재 취약 지역을 식별하기 위하여 Python과 QGIS를 활용하였으며, 실제 도로 상황을 반영하기 위해 KAKAOMAP API, T-MAP API를 활용하였습니다.
-또한, 화재 위험도는 선행 연구를 바탕으로 진행되었습니다. 또한, 이를 웹사이트로 구현하여 발표를 듣는 청중들에게 좀 더 쉬운 이해와, Interactive한 경험을 선사하였습니다. 🖐️
+--> 이에 따른 화성시 도시데이터 기반 산업단지 맞춤형 화재 전략을 수립하는 것을 목표입니다.
 
- 웹사이트는 맵 이동, 위험도 시각화 On/Off, 버퍼 분석을 시각적으로 나타내며 산업단지의 전체적인 분석과 산업단지 내 구역별 분석 결과는 Chat GPT API를 활용하여 자동화하였습니다.
-그 결과, 대상을 수상할 수 있었습니다. 🙂
+2) 분석 모델링
+1. 화성시 내 약 12개곳의 산업단지별 화재 위험도를 분석하여 Top3 지역을 선정합니다. (밀집도, 소방서와의 거리, 출동 시간 등의 변수로 계산합니다.)
+2. 1번 과정에서 선정된 산업단지를 기준으로 나누어진 구역별 화재 위험도를 재측정합니다. (소화전의 교차 버퍼 비율, 출동 시간, 건물 밀도 등의 변수로 계산합니다.)
+3. 분석된 결과를 종합하여, 각 단지별 맞춤 대응 전략 및 위험 수준을 평가하고 DX 전략을 수립하여 제시합니다.
 
-자세한 내용은 아래 Presentation을 참고해주시면 감사하겠습니다.
+3) 해결책 제시
+- 측정된 위험 결과에 따라, 가장 위험도가 높은 구역 기준 600m (소방청이 발표한 화재 지점으로부터 도보로 대피 가능한 거리) 버퍼를 그린 후, 버퍼 내에 대피소가 존재하지 않는 경우 추가 대피소 설치를 건의합니다.
+- 고위험 산업단지 내부에는 AI CCTV 등을 설치하여, 화재를 초기에 탐지 및 진압하고 수집된 데이터를 기반으로 3D 모델링을 통해 대피 시나리오를 생성을 통해 더 빠른 초동 대피를 건의합니다.
+
+4) 웹 데모 배포
+- 저희의 분석 모델 및 결과를 사용자 경험을 위하여 웹 데모를 만들어서 배포합니다. (QR 코드 생성)
+  
+---
+
+# Tech
+- Python: 데이터 분석 / 시각화
+- QGIS: 산업단지 위성지도 맵 매핑 / 버퍼 분석 / 교차 분석 / 네트워크 분석
+- Streamlit: 웹 데모 생성 / 배포 (Ngork 연동)
 
 ---
 
-# 📊 Work Flow
- 화재 위험도 계산 대상에 따라 수집할 수 있는 데이터가 다르고, 고려해야 할 변수들이 다르므로 다르게 평가하였습니다.
-산업단지 선정 시 화재 위험도 평가는 Python을 통해 진행하였으며, 구역별 화재 위험도 평가는 QGIS에서 Python Console을 연동하여 사용하거나 버퍼분석을 통해 계산하였습니다. 
+# Result
+## 산업단지별 화재 위험도
 
-## 산업단지 선정 시 화재 위험도 평가 Flow Chart
-![플로차트 - 프레임 3 (2)](https://github.com/user-attachments/assets/30de4cf7-539a-478e-9a09-3c75dfd993d0)
 
-## 산업단지 내 구역별 화재 위험도 평가 Flow Chart
-![플로차트 - 프레임 1 (1)](https://github.com/user-attachments/assets/25a3ff89-ceb7-468b-b7ab-0282627eed08)
+- Top3 지역은 "화성동탄도시첨단", "향남제약일반산업단지", "화성발안일반산업단지"로 선정되었습니다.
+- 저희는 선정된 지역을 기준으로 시범 분석을 진행합니다.
 
----
+## 분석 시각화
 
-# 🏆 Result
-2025년도 제 2회 화성시 도시데이터 연구공모전 대상 수상
 
----
+- 본 맵은 "향남제약일반산업단지"를 보여줍니다. 맵을 보면, 기존 대피소(green)의 위치는 기준점(black)을 기준으로 산 아래에 분포되어있습니다.
+- 따라서, 기준점(black)에서 화재 발생시 사람들은 기존 대피소로 대피하지 못합니다. 이에 따라, 제안 대피소(red)를 제안합니다.
 
-# 📊 PPT
-![Image](https://github.com/user-attachments/assets/3022e376-df23-4075-a6e7-7953e94660de)
+## 웹 데모 배포
 
-![Image](https://github.com/user-attachments/assets/723a821a-8a88-47d3-8c4e-488d63487187)
 
-![Image](https://github.com/user-attachments/assets/5a3ce716-af69-4cce-bbe3-84af0b9c332b)
-
-![Image](https://github.com/user-attachments/assets/74a15f68-448c-4371-bcaf-84898c5ca24a)
-
-![Image](https://github.com/user-attachments/assets/6eca9c27-7320-4f03-bd3e-889bacce51b4)
-
-![Image](https://github.com/user-attachments/assets/cd3ddea4-ddc3-4616-9af3-1bb422a6b09c)
-
-![Image](https://github.com/user-attachments/assets/e7a4e868-359e-4b9f-a7eb-8c750a1eb2c5)
-
-![Image](https://github.com/user-attachments/assets/9d8c3a12-60cf-43e5-aad5-518de979fc0c)
-
-![Image](https://github.com/user-attachments/assets/ae5f847b-3f23-4bed-8b73-625006944db7)
-
-![Image](https://github.com/user-attachments/assets/2fb0b4f1-150b-4584-beb9-0a1d63e81807)
-
-![Image](https://github.com/user-attachments/assets/28f5f1c3-0f10-4340-8345-c7859f1bb4f6)
-
-![Image](https://github.com/user-attachments/assets/2ce7ec9f-a245-46ba-b4af-567081a60d80)
-
-![4_1020-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/a27fbdcc-cef0-454a-801c-02dd14a04917)
-
-![Image](https://github.com/user-attachments/assets/ba4ddfc6-f470-43ef-ac31-dca2c058801a)
-
-![Image](https://github.com/user-attachments/assets/ef66ee10-b18d-4cba-96e9-580079ef89e3)
-
-![Image](https://github.com/user-attachments/assets/18989434-0aca-4572-90b7-4a9d76723a47)
-
-![Image](https://github.com/user-attachments/assets/c0180574-bd47-4ce0-a8a8-4aca15406d63)
-
-![Image](https://github.com/user-attachments/assets/7b81a169-ac88-42ce-90a3-1410a00455ca)
+# References
+[Development of a Fire Risk Assessment System for Industrial Complexes Using GIS](https://kieae.kr/_common/do.php?a=full&b=12&bidx=3791&aidx=41801)
