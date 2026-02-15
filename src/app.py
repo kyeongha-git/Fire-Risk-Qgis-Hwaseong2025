@@ -1,4 +1,3 @@
-from folium.features import JsCode
 import streamlit as st
 import folium
 import geopandas as gpd
@@ -7,7 +6,9 @@ from streamlit_folium import st_folium
 import json
 import pandas as pd
 from openai import OpenAI
+import os
 
+# --- 페이지 설정 ---
 st.set_page_config(
     page_title="산업단지 화재 위험도 맵",
     page_icon="🔥",
@@ -15,29 +16,35 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- OpenAI API 키 입력 ---
-client = OpenAI(api_key="YOUR_API_KEY")
+# -- insert your OpenAI API key here or set it as an environment variable ---
+api_key = os.getenv("OPENAI_API_KEY")
+
+if not api_key:
+    st.error("Not found OpenAI API Key. Please set your API key in the environment variable 'OPENAI_API_KEY'.")
+    st.stop()
+
+client = OpenAI(api_key=api_key)
 
 # ---- 산업단지별 파일 매핑 ----
 industrial_areas = {
     "발안일반산업단지": {
         "geojson": "data/dashboard/발안산업단지_최종스코어링_결과.geojson",
-        "csv": "data/dashboard/발안산업단지.csv",
-        "buffer_geojson": "data/dashboard/발안_젤위험_버퍼600.geojson"
+        "csv": "data/dashboard/발안산업단지.csv",
+        "buffer_geojson": "data/dashboard/발안_젤위험_버퍼600.geojson"
     },
     "향남제약일반산업단지": {
         "geojson": "data/dashboard/향남산업단지_최종스코어링_결과.geojson",
-        "csv": "data/dashboard/향남제약산업단지111.csv",
-        "buffer_geojson": "data/dashboard/향남_젤위험_버퍼600.geojson"
+        "csv": "data/dashboard/향남제약산업단지111.csv",
+        "buffer_geojson": "data/dashboard/향남_젤위험_버퍼600.geojson"
     },
     "동탄도시첨단산업단지": {
-        "geojson": "data/dashboard/동탄도시첨단산업단지_최종스코어링_결과.geojson",
-        "csv": "data/dashboard/동탄도시첨단산업단지111.csv",
-        "buffer_geojson": "data/dashboard/동도첨_젤위험_버퍼600.geojson"
+        "geojson": "data/dashboard/동탄도시첨단산업단지_최종스코어링_결과.geojson",
+        "csv": "data/dashboard/동탄도시첨단산업단지111.csv",
+        "buffer_geojson": "data/dashboard/동도첨_젤위험_버퍼600.geojson"
     }
 }
 
-# ---- ChatGPT 산업단지 화재위험도 분석 프롬프트 시나리오 ----
+# ---- 산업단지 화재위험도 분석 prompt scenario ----
 @st.cache_data(show_spinner=False)
 def get_area_summary_cached(area_name, csv_path):
     try:
@@ -108,7 +115,6 @@ with st.sidebar:
     st.markdown(legend_html, unsafe_allow_html=True)
     
     st.markdown("---")
-    # ChatGPT 처리
     with st.spinner(f"{selected_area} AI 요약 생성 중..."):
         summary = get_area_summary_cached(selected_area, industrial_areas[selected_area]["csv"])
     summary_html=summary.replace("\n", "<br>")
@@ -133,13 +139,13 @@ geojson_path = industrial_areas[selected_area]["geojson"]
 csv_path = industrial_areas[selected_area]["csv"]
 buffer_geojson_path = industrial_areas[selected_area]["buffer_geojson"]
 
-# ---- GeoJSON 처리 ----
+# ---- Process GeoJSON ----
 with open(geojson_path, encoding="utf-8") as f:
     gj = json.load(f)
     property_keys = list(gj["features"][0]["properties"].keys())
     last_property_col = property_keys[-1]
 
-# ---- 색상 기준 함수 ----
+# ---- Functions ----
 def get_color_balan(value):
     try: value = float(value)
     except: return "#cccccc"
